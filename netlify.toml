@@ -1,11 +1,6 @@
 [build]
-  # Clone Flutter stable, enable web, build in release mode.
-  # --pwa-strategy=none  → do NOT generate flutter_service_worker.js at all.
-  # This is the build-time equivalent of serviceWorkerVersion:null in index.html.
-  # Both flags together ensure zero service worker involvement.
-  command = "git clone https://github.com/flutter/flutter.git --depth 1 -b stable && flutter/bin/flutter config --enable-web && flutter/bin/flutter build web --release --pwa-strategy=none"
+  command = "rm -rf flutter && git clone https://github.com/flutter/flutter.git --depth 1 -b stable && flutter/bin/flutter config --enable-web && flutter/bin/flutter build web --release --pwa-strategy=none"
   publish = "build/web"
-
 [build.environment]
   FLUTTER_VERSION = "stable"
 
