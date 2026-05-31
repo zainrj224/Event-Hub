@@ -1,0 +1,164 @@
+# 📊 Event Hub - Visual Structure Overview
+
+## 🏗️ Complete Project Architecture
+
+```
+Event-Hub-fixed/
+│
+├── 📱 lib/                              # MAIN APP (Keep as-is)
+│   ├── main.dart                        # App entry point
+│   ├── main_shell.dart                  # Bottom navigation
+│   ├── firebase_options.dart            # Firebase config
+│   │
+│   ├── core/                            # App-wide configuration
+│   │   ├── routes/
+│   │   │   └── app_routes.dart          # Navigation logic
+│   │   └── constants/
+│   │       ├── app_constants.dart
+│   │       └── app_strings.dart
+│   │
+│   ├── features/                        # Current structure (works fine!)
+│   │   ├── auth/
+│   │   ├── events/
+│   │   ├── explore/
+│   │   ├── home/
+│   │   └── profile/
+│   │
+│   └── shared/
+│       └── services/                    # Also in backend_logic/
+│
+├── 🎨 frontend_ui/                      # NEW: Pure UI Layer
+│   │
+│   ├── screens/                         # All app screens
+│   │   ├── auth/
+│   │   │   ├── sign_in_screen.dart      # Login UI
+│   │   │   └── sign_up_screen.dart      # Signup UI
+│   │   │
+│   │   ├── home/
+│   │   │   ├── home_tab.dart            # Main feed
+│   │   │   └── home_screen.dart
+│   │   │
+│   │   ├── explore/
+│   │   │   └── explore_tab.dart         # Search/filter events
+│   │   │
+│   │   ├── events/
+│   │   │   ├── event_detail_screen.dart # Event details
+│   │   │   ├── create_event_screen.dart # Create new event
+│   │   │   └── search_screen.dart       # Event search
+│   │   │
+│   │   └── profile/
+│   │       ├── profile_tab.dart         # User profile
+│   │       ├── settings_screen.dart     # App settings
+│   │       ├── my_events_screen.dart    # Created events
+│   │       └── saved_events_screen.dart # Bookmarked events
+│   │
+│   ├── widgets/                         # Reusable components
+│   │   ├── cards/
+│   │   │   └── event_card.dart          # Event display card
+│   │   ├── buttons/
+│   │   │   └── gradient_button.dart     # Custom button
+│   │   ├── inputs/
+│   │   │   └── custom_text_field.dart   # Form inputs
+│   │   └── common/
+│   │       └── loading_indicator.dart   # Loading states
+│   │
+│   ├── theme/                           # App styling
+│   │   ├── app_theme.dart               # Colors, typography
+│   │   └── theme_notifier.dart          # Dark/light mode
+│   │
+│   └── README.md                        # Frontend documentation
+│
+├── ⚙️ backend_logic/                    # NEW: Business Logic Layer
+│   │
+│   ├── models/                          # Data transfer objects
+│   │   └── event_model.dart             # Event JSON ↔ Dart
+│   │
+│   ├── entities/                        # Business objects
+│   │   └── event_entity.dart            # Event logic & rules
+│   │
+│   ├── repositories/                    # Data access
+│   │   ├── event_repository.dart        # Interface
+│   │   └── event_repository_impl.dart   # Firestore queries
+│   │
+│   ├── services/                        # App services
+│   │   ├── auth_service.dart            # Authentication
+│   │   ├── location_service.dart        # GPS/location
+│   │   ├── cache_service.dart           # Local storage
+│   │   └── cached_firestore.dart        # Cached queries
+│   │
+│   ├── utils/                           # Helper functions
+│   │   ├── date_formatter.dart          # Date formatting
+│   │   └── validators.dart              # Input validation
+│   │
+│   └── README.md                        # Backend documentation
+│
+├── 📄 Documentation
+│   ├── PROJECT_STRUCTURE.md             # Architecture overview
+│   ├── MIGRATION_GUIDE.md               # How to migrate
+│   └── README.md                        # (This file)
+│
+└── 📦 Configuration
+    ├── pubspec.yaml                     # Dependencies
+    ├── android/                         # Android config
+    ├── ios/                             # iOS config
+    └── web/                             # Web config
+```
+
+## 🎯 IMPORTANT: Your Current App Works Fine!
+
+**You DON'T need to change anything in `lib/` folder.** 
+
+The `frontend_ui/` and `backend_logic/` folders are:
+- ✅ **Ready to use** when you want to redesign UI
+- ✅ **Organized copies** of your existing code
+- ✅ **Optional** - use them when needed, not required now
+
+## 🔄 How Data Flows
+
+```
+User Action (Tap)
+      ↓
+[Frontend UI Screen]
+      ↓
+   Calls →  [Backend Repository]
+                    ↓
+                [Firestore]
+                    ↓
+                [Model converts JSON → Entity]
+                    ↓
+   Returns ← [Stream<Event>]
+      ↓
+[Frontend UI updates]
+      ↓
+User sees result
+```
+
+## 📚 Documentation
+
+- **frontend_ui/README.md** - How to work with UI components
+- **backend_logic/README.md** - How to work with business logic
+- **PROJECT_STRUCTURE.md** - Architecture explanation
+- **MIGRATION_GUIDE.md** - Step-by-step migration (if you want)
+
+## ⚡ Quick Start
+
+```bash
+# Your app runs normally
+flutter run
+
+# Clean and rebuild
+flutter clean
+flutter pub get
+flutter run
+```
+
+## 🎨 Future UI Redesign (Example)
+
+When you're ready to redesign, you can:
+
+1. Find screen in `frontend_ui/screens/`
+2. Create new design version
+3. Import using: `import 'package:event_hub/frontend_ui/...'`
+4. Backend logic stays unchanged!
+
+**That's it!** The separation is ready when you need it.
